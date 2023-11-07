@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import serial
 
-ser = serial.Serial('/dev/ttyUSB0', 9600)
+ser = serial.Serial('/dev/ttyUSB0', 115200)
 
 #==============CHANGE YOUR MASK HERE===============
 lower=np.array([  0,146,115])
@@ -42,3 +42,4 @@ while True:
         break
     if cv2.waitKey(1)==ord("q"):
         break
+
