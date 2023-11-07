@@ -5,8 +5,8 @@ import serial
 ser = serial.Serial('/dev/ttyUSB0', 115200)
 
 #==============CHANGE YOUR MASK HERE===============
-lower=np.array([  0,146,115])
-upper=np.array([ 20,232,207])   
+lower=np.array([  0,150,121])
+upper=np.array([  9,233,199])   
 
 def findSign(img):
     hsv=cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
@@ -32,12 +32,26 @@ cap = cv2.VideoCapture(0)
 cap.set(3, 640)  # Width
 cap.set(4, 480)  # Height
 
+ser1 = 0
+ser0 = 0
 while True:
     ret, frame = cap.read()  
     if ret:
         imgContour, x =findSign(frame.copy())
         cv2.imshow("contour", imgContour)
-        ser.write(x.encode('utf-8'))
+        if x == '1':
+            ser1+=1
+            if ser1 == 50:
+                ser.write(x.encode('utf-8'))
+                print('serial output:', x)
+                ser1 = 0
+        elif x == '0':
+            ser0+=1
+            if ser0 == 50:
+                ser.write(x.encode('utf-8'))
+                print('serial output:', x)
+                ser0 = 0
+        
     else:
         break
     if cv2.waitKey(1)==ord("q"):
