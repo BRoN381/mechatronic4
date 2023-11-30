@@ -1,7 +1,7 @@
 import cv2
 
 # Initialize the video capture object
-cap = cv2.VideoCapture(2)  # Use the correct camera index as discussed earlier
+cap = cv2.VideoCapture(0)  # Use the correct camera index as discussed earlier
 
 if not cap.isOpened():
     print("Error: Could not open the camera.")
